@@ -6,7 +6,7 @@
 
 -Toda a parte de validação foi construida no UpdateHomeRequest e StoreHomeRequest, localizados em 'app/Http/Requests'.
 
--Foi utilizado o Auth nativo do laravel para a atenticação.
+-Foi utilizado o Auth nativo do laravel para a autenticação.
 
 -Foi utilizado o bootstrap para construção e personalização do front.
 
