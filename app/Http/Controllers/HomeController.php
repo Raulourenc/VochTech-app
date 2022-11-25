@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Home;
-use App\Models\State;
 use App\Http\Requests\StoreHomeRequest;
 use App\Http\Requests\UpdateHomeRequest;
+use App\Models\user;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -29,9 +30,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $address = Home::all();
+        $people = Home::all();
         
-        return view('home', compact('address'));
+        return view('home', compact('people'));
     }
 
     /**
@@ -41,9 +42,7 @@ class HomeController extends Controller
      */
     public function create()
     {
-        $states = State::all();
-        
-        return view('address', compact('states'));
+        return view('people');
     }
 
     /**
@@ -53,15 +52,17 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreHomeRequest $request)
-    {
-        $address = new Home;
-        $address->address = $request->address;
-        $address->number = $request->number;
-        $address->city = $request->city;
-        $address->state = $request->state;
-        $address->save();
+    {  
+      
+        $id = Auth::user()->id;
 
-        return redirect()->route('home.index')->with('msg', 'Cadastro realizado com sucesso!');
+        $people = new Home;
+        $people->user_id = $id;
+        $people->name = $request->name;
+        $people->age = $request->age;
+        $people->save();
+
+        return redirect()->route('home.index')->with('msg', 'Cadastro realizado com sucesso!', compact('id'));
     }
 
     /**
@@ -70,10 +71,7 @@ class HomeController extends Controller
      * @param  \App\Models\Home  $home
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-      
-    }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -83,10 +81,10 @@ class HomeController extends Controller
      */
     public function edit($id)
     {
-        $states = State::all();
-        $address = Home::findOrFail($id);
         
-        return view('address', compact('states', 'address', 'id'));
+        $people = Home::findOrFail($id);
+        
+        return view('people', compact('people', 'id'));
       
     }
 
@@ -101,13 +99,11 @@ class HomeController extends Controller
     {   
         $id = $request->id;
         $add = Home::find($id);
-
-        $address['address'] = $request->address;
-        $address['number'] = $request->number;
-        $address['city'] = $request->city;
-        $address['state'] = $request->state;
-        
-        $save = $add->update($address);
+     
+        $people['name'] = $request->name;
+        $people['age'] = $request->age;
+     
+        $save = $add->update($people);
 
         return redirect()->route('home.edit', $id)->with('msg', 'Atualização realizada com sucesso!');
     }

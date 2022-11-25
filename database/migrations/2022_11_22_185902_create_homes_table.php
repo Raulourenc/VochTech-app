@@ -13,13 +13,13 @@ class CreateHomesTable extends Migration
      */
     public function up()
     {
-        Schema::create('homes', function (Blueprint $table) {
+        Schema::create('people', function (Blueprint $table) {
             $table->id();
-            $table->string('address');
-            $table->string('number');
-            $table->string('city');
-            $table->string('state');
+            $table->unsignedBigInteger('user_id');
+            $table->string('name');
+            $table->string('age');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -30,6 +30,14 @@ class CreateHomesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('homes');
+       
+        Schema::table('people', function (Blueprint $table) {
+         
+            $table->dropForeign([
+                'user_id'
+            ]);
+            $table->dropIfExists('people');
+        });
+       
     }
 }

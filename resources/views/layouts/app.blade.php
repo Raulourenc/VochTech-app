@@ -29,7 +29,7 @@
                 @auth
                 <div class="navbar-nav">
                     <a class="nav-link" href="{{ Route('home.index') }}">Home</a>
-                    <a class="nav-link" href="{{ Route('home.create') }}">Endereços</a>
+                    <a class="nav-link" href="{{ Route('home.create') }}">Pessoa</a>
                 </div>
                 @endauth
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

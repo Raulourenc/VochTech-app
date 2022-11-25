@@ -25,10 +25,8 @@ class StoreHomeRequest extends FormRequest
     {
         return [
 
-            'address' => 'required|min:3|max:40',
-            'number' => 'required|integer',
-            'city' => 'required|min:3|max:40',
-            'state' => 'required|in:SP,RJ,PE',
+            'name' => 'required|min:3|max:40',
+            'age' => 'required|integer',
         ];
     }
 
@@ -43,7 +41,7 @@ class StoreHomeRequest extends FormRequest
             'required' => 'O :attribute é obrigatório',
             'min' => 'O campo :attribute deve ter no mínimo 3 digitos',
             'max' => 'O campo :attribute deve ter no máximo 40 digitos',
-            'state.in' => 'O campo estado é obrigatório',
+            'integer' => 'O campo :attribute deve ser um número',
         ];
     }
 }
